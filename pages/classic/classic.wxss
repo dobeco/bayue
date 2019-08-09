@@ -1,0 +1,32 @@
+/* pages/classic/classic.wxss */
+
+.container {
+  height: 400px;
+  display: flex;
+  justify-items: center;
+  justify-content:center;
+  flex-direction: row;
+  align-items: baseline;
+
+  background: #4e4e;
+}
+.chunk {
+  width: 100rpx;
+  height: 100rpx;
+  background-color: pink;
+  display: flex;
+}
+
+.red {
+  background: red;
+  font-size: 12px;
+}
+.blue {
+  background: blue;
+}
+.yellow {
+  background: yellow;
+}
+.pink {
+  background: pink;
+}
