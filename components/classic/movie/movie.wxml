@@ -1,0 +1,4 @@
+<!--components/classic/movie/movie.wxml-->
+
+<image></image>
+<image src="images/movie@tag.png"></image>

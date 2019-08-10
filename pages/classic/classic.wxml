@@ -1,6 +1,6 @@
 <view class="container">
-<v-like/>
- 
+  <v-like like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
+  <text>{{title}}</text>
 
-  
+
 </view>
