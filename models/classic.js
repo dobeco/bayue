@@ -1,4 +1,4 @@
-import {HTTP} from '../utils/http.js'
+import HTTP from '../utils/http.js'
 
 class ClassicModel extends HTTP {
   constructor() {
@@ -16,4 +16,4 @@ class ClassicModel extends HTTP {
 
 }
 
-export { ClassicModel} 
+export default ClassicModel

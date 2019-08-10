@@ -3,4 +3,4 @@ const config = {
   appkey: 'RdshydjBvcYZhMZC'
 }
 
-export { config }
+export default config;

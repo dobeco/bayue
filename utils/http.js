@@ -1,4 +1,4 @@
-import { config } from './config.js'
+import config  from './config.js'
 
 const tips ={
   1: "抱歉出现了一个错误",
@@ -36,7 +36,7 @@ class HTTP {
         if (startChar == '2') {
           params.success && params.success(res.data);
         } else {
-          //params.error && params.error(res);
+          params.error && params.error(res);
           let error_code = res.data.error_code;
           that._show_error(error_code)
         }
@@ -59,4 +59,4 @@ class HTTP {
   }
 };
 
-export { HTTP };
+export default HTTP ;

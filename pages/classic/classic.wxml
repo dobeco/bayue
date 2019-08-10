@@ -1,6 +1,6 @@
-<view class="container">
-  <v-like like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
-  <text>{{title}}</text>
+
+  <v-like  bind:like="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
 
 
-</view>
+  <v-movie img="{{classic.image}}" content="{{classic.content}}" />
+
