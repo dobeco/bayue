@@ -1,7 +1,6 @@
 <view class="container">
-  <view class="chunk red">1</view>
-  <view class="chunk blue">2</view>
-  <view class="chunk yellow">哈哈哈</view>
-  <view class="chunk pink">4</view>
+<v-like/>
+ 
+
   
 </view>

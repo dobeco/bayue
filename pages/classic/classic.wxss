@@ -8,7 +8,6 @@
   flex-direction: row;
   align-items: baseline;
 
-  background: #4e4e;
 }
 .chunk {
   width: 100rpx;
