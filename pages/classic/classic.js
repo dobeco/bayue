@@ -39,5 +39,32 @@ Page({
     likeModel.like(like_or_cancel, this.data.classic.id, this.data.classic.type)
   },
 
+  // 下一页 
+  onPrevious: function() {
+    this._updateClassic('previous')
+  
+  },
+ 
+  // 上一页
+  onNext: function () { 
+    this._updateClassic('next')
+  
+
+
+  },
+  _updateClassic: function (nextOrPrevious) {
+    let index = this.data.classic.index;
+    classModel.getClassic(index,nextOrPrevious, res => {
+      //console.log(res)
+      this.setData({
+        classic: res,
+        latest: classModel.islatest(res.index),
+        first: classModel.isFirst(res.index)
+      })
+
+    })
+
+  }
+
 
 })

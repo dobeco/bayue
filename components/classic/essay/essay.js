@@ -1,4 +1,4 @@
-// components/classic/movie/movie.js
+// components/classic/essay/essay.js
 import classicBeh from '../class-beh.js'
 Component({
   /**
@@ -6,7 +6,6 @@ Component({
    */
   behaviors: [classicBeh],
   properties: {
-
   },
 
   /**
@@ -15,6 +14,7 @@ Component({
   data: {
 
   },
+
 
   /**
    * 组件的方法列表

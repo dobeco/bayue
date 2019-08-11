@@ -1,11 +1,12 @@
 <view class="container">
   <view class="header">
-    <v-epsoide class="epsoide" index="{{classic.index}}"></v-epsoide>
+    <v-epsoide class="epsoide" index="{{classic.index}}"/>
     <v-like class="like" bind:like="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
   </view>
 
 
   <v-movie img="{{classic.image}}" content="{{classic.content}}" />
-  <v-navi class="navi" bind:left="onLeft" bind:right="onRight" title="{{classic.title}}" first="{{first}}" latest="{{latest}}" />
+  <v-music/>
+  <v-navi class="navi" bind:left="onNext" bind:right="onPrevious" title="{{classic.title}}" first="{{first}}" latest="{{latest}}" />
 
 </view>
