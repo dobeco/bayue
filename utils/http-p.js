@@ -1,6 +1,6 @@
-import config  from './config.js'
+import config from './config.js'
 
-const tips ={
+const tips = {
   1: "抱歉出现了一个错误",
   1005: "appkey无效",
   3000: "期刊不存在"
@@ -12,38 +12,40 @@ class HTTP {
     this.baseRestUrl = config.api_blink_url
   }
 
-  //http 请求类, 当noRefech为true时，不做未授权重试机制
-  request(params) {
-    var that = this
-    var url = this.baseRestUrl + params.url;
+  request({url, resolve, data = {}, method = "GET"}) {
+    return new Promise((resolve, reject) => {
+      this._request(url, resolve, reject, data, method)
 
-    if (!params.method) {
-      params.method = 'GET';
-    }
+    })
+
+  };
+
+  _request( url,resolve,reject,data = {},method = "GET") {
+
     wx.request({
-      url: url,
-      data: params.data,
-      method: params.method,
+      url: config.api_blink_url + url,
+      data: data,
+      method: method,
       header: {
         'content-type': 'application/json',
         'appkey': config.appkey
       },
-      success: function (res) {
+      success: res => {
         // 判断以2（2xx)开头的状态码为正确
         // 异常不要返回到回调中，就在request中处理，记录日志并showToast一个统一的错误即可
         let code = res.statusCode.toString();
-        var startChar = code.charAt(0);
+        let startChar = code.charAt(0);
         if (startChar == '2') {
-          params.success && params.success(res.data);
+          resolve(res.data);
         } else {
-          params.error && params.error(res);
+          reject();
           let error_code = res.data.error_code;
-          that._show_error(error_code)
+          this._show_error(error_code)
         }
       },
       fail: function (err) {
-        //params.fail && params.fail(err)
-        that._show_error(1)
+        reject()
+        this._show_error(1)
       }
     });
   }
@@ -51,15 +53,13 @@ class HTTP {
     if (!error_code) {
       error_code = 1
     }
-    const tip = tips[error_code];
+    const tip = tips[error_code]
     wx.showToast({
-      title: tip ? tip : tips[1],
+      title: tip? tip: tips[1],
       icon: 'none',
       duration: 2000
     })
   }
-    
-  
 };
 
-export default HTTP ;
+export default HTTP;

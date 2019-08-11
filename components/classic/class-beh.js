@@ -1,6 +1,6 @@
 // behavior 行为
 
-let classicBeh = Behavior({
+const classicBeh = Behavior({
   properties: {
     img: String,
     content: String
