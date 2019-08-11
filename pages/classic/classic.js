@@ -15,6 +15,8 @@ Page({
     classic:null,
     latest:true,
     first: false,
+    likeCount: 0,
+    likeStatus: false
 
   },
 
@@ -24,8 +26,11 @@ Page({
   onLoad: function(options) {
     classModel.getLatest(res => {
       console.log(res);
+     
       this.setData({
-        classic: res
+        classic: res,
+        likeCount:res.fav_nums,
+        likeStatus: res.like_status
       })
     })
 
@@ -56,12 +61,23 @@ Page({
     let index = this.data.classic.index;
     classModel.getClassic(index,nextOrPrevious, res => {
       //console.log(res)
+      this._getLikeStatus(res.id,res.type)
       this.setData({
         classic: res,
         latest: classModel.islatest(res.index),
         first: classModel.isFirst(res.index)
       })
 
+    })
+
+  },
+  
+  _getLikeStatus:function(artID,category, callback) {
+    likeModel.getClassicLikeStatus(artID, category, res => {
+      this.setData({
+        likeCount: res.fav_nums,
+        likeStatus: res.like_status
+      })
     })
 
   }
