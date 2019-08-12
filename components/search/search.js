@@ -13,7 +13,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    historyWords: []
+    historyWords: [],
+    hotWords: []
+
 
   },
 
@@ -22,13 +24,20 @@ Component({
     this.setData({
       historyWords
     })
-      },
+
+    keyWordModel.getHot().then(res => {
+      this.setData({
+        hotWords: res.hot
+      })
+
+    })
+  },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    onCancel: function (event) {
+    onCancel: function(event) {
       this.triggerEvent('cancel', {}, {})
     },
 

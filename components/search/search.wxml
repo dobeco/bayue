@@ -23,9 +23,9 @@
         <view class="chunk"></view>
         <text>热门搜索</text>
       </view>
-        <view class="tags">
-          <v-tag bind:tapping="onConfirm" wx:for="{{hotKeys}}" text="{{item}}" />
-        </view>
+      <view class="tags">
+        <v-tag bind:tapping="onConfirm" wx:for="{{hotWords}}" text="{{item}}" />
+      </view>
     </view>
   </view>
   <view class="books-container" wx:if="{{finished}}">

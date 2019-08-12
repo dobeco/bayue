@@ -1,5 +1,6 @@
+import HTTP from '../utils/http-p.js'
 
-class KeyWordModle {
+class KeyWordModle extends HTTP {
   key = 'q';
   max = 10;
   getHistory() {
@@ -11,7 +12,11 @@ class KeyWordModle {
 
   };
 
-  getHot() {};
+  getHot() {
+    return this.request({
+      url: '/book/hot_keyword'
+    })
+  };
   addToHistory(keyword) {
     let words = this.getHistory();
     const has = words.includes(keyword)
