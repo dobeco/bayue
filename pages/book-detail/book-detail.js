@@ -44,6 +44,7 @@ Page({
         this.setData({
           book: res[0],
           comments: res[1].comments,
+          noComment: res.comments == false ? true : false,
           likeStatus: res[2].like_status,
           likeCount: res[2].fav_nums
         });
