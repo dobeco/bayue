@@ -29,4 +29,4 @@ class KeyWordModle {
   }
 }
 
-export default KeyWordModle;
+export default KeyWordModle

@@ -13,8 +13,16 @@ Component({
    * 组件的初始数据
    */
   data: {
+    historyWords: []
 
   },
+
+  attached() {
+    const historyWords = keyWordModel.getHistory();
+    this.setData({
+      historyWords
+    })
+      },
 
   /**
    * 组件的方法列表
