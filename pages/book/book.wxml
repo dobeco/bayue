@@ -16,5 +16,5 @@
     </view>
   </view> 
 </view>
-  <search-cmp more="{{more}}" wx:if="{{searchPanel}}" bind:cancel="onCancel" />  
+  <v-search more="{{more}}" wx:if="{{searchPanel}}" bind:cancel="onCancel" />  
 </view>
