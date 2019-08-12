@@ -1,0 +1,18 @@
+var limit = function(array, length) {
+  return array.slice(0, length)
+}
+// \n换行符转化
+var format = function(text) {
+  if (!text) {
+    return
+  }
+  var reg = getRegExp('\\\\n', 'g')
+  var text = text.replace(reg, '\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+  return text
+}
+
+module.exports = {
+
+  limit: limit,
+  format: format
+}

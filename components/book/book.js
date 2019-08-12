@@ -31,7 +31,7 @@ Component({
         bid: this.properties.book.id
       }, {})
       wx.navigateTo({
-        url: '../../pages/detail/detail?bid=' + this.properties.book.id,
+        url: '../../pages/book-detail/book-detail?bid=' + this.properties.book.id,
       })
     }
 
