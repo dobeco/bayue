@@ -19,7 +19,7 @@ Page({
     noComment: true,
     posting: false, // 是否打开评论面板
     book: null,
-    
+
 
 
   },
@@ -34,6 +34,22 @@ Page({
     const comments = bookModel.getComments(bid);
     const likeStatus = bookModel.getLikeStatus(bid);
 
+    wx.showLoading({
+      title: '加载中',
+    })
+    // 使用Promise.all() 处理并发请求,等待所有请求完成后才触发回调函数 rece竞争 任何一个字promise完成率先触发回调函数，不会等待，相互竞争，谁先完成了就马上执行回调函数，res将携带的是竞争成功的这个请求的回调结果
+    Promise.all([detail, comments, likeStatus])
+      .then(res => {
+        console.log(res);
+        this.setData({
+          book: res[0],
+          comments: res[1].comments,
+          likeStatus: res[2].like_status,
+          likeCount: res[2].fav_nums
+        });
+        wx.hideLoading()
+      })
+    /*
     detail.then(res => {
       console.log(res);
       this.setData({
@@ -55,8 +71,9 @@ Page({
         likeStatus: res.like_status,
         likeCount: res.fav_nums
       })
-    })
+    })*/
   },
+
   // 喜欢
   onLike(event) {
     let like_or_cancel = event.detail.behavior
@@ -75,7 +92,7 @@ Page({
   },
 
   //
-  onPost: function (event) {
+  onPost: function(event) {
     let comment = event.detail.value || event.detail.text
     console.log(this.data.book.id)
     if (!comment) {
@@ -90,27 +107,27 @@ Page({
     }
 
     bookModel.postComment(this.data.book.id, comment)
-      .then( res => {
+      .then(res => {
         wx.showToast({
           title: '+1',
           icon: 'none'
         });
-         this.data.comments.unshift({
-          content:comment,
-          nums:1
+        this.data.comments.unshift({
+          content: comment,
+          nums: 1
         })
 
         this.setData({
           comments: this.data.comments,
-          posting:false
+          posting: false
         })
 
-     
 
-      })  
-    
 
- 
+      })
+
+
+
   },
 
 
