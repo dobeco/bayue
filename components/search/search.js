@@ -1,4 +1,6 @@
 // components/search/search.js
+import KeyWordModle from '../../models/keyword.js'
+const keyWordModel = new KeyWordModle();
 Component({
   /**
    * 组件的属性列表
@@ -21,6 +23,11 @@ Component({
     onCancel: function (event) {
       this.triggerEvent('cancel', {}, {})
     },
+
+    onConfirm(e) {
+      const words = e.detail.value;
+      keyWordModel.addToHistory(words)
+    }
 
   }
 })

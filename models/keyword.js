@@ -1,3 +1,4 @@
+
 class KeyWordModle {
   key = 'q';
   max = 10;
@@ -27,3 +28,5 @@ class KeyWordModle {
 
   }
 }
+
+export default KeyWordModle;
