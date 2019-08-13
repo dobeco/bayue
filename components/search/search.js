@@ -1,6 +1,9 @@
 // components/search/search.js
 import KeyWordModle from '../../models/keyword.js'
+import BookModel from '../../models/book.js'
 const keyWordModel = new KeyWordModle();
+const bookModel = new BookModel()
+
 Component({
   /**
    * 组件的属性列表
@@ -14,7 +17,13 @@ Component({
    */
   data: {
     historyWords: [],
-    hotWords: []
+    hotWords: [],
+    dataArray: [],
+    finished: false,
+    q: '',
+    loading: false,
+    loadingCenter: false,
+    searching: false
 
 
   },
@@ -37,14 +46,40 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    onCancel: function(event) {
+    onCancel(event) {
       this.triggerEvent('cancel', {}, {})
     },
 
+    onDelete (event) {
+      this.setData({
+        searching: false
+      })
+      
+    },
+  
+
     onConfirm(e) {
-      const words = e.detail.value;
-      keyWordModel.addToHistory(words)
-    }
+      this.setData({
+        searching:true
+      })
+      const q = e.detail.value || e.detail.text;
+      // 图书搜索
+      bookModel.search(0, q)
+        .then(res => {
+          console.log(res);
+          this.setData({
+            dataArray: res.books,
+            q:q
+          });
+          // 添加历史记录
+          keyWordModel.addToHistory(q);
+        })
+
+
+
+    },
+
+ 
 
   }
 })

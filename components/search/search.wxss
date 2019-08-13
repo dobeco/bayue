@@ -39,14 +39,15 @@
   /* margin-left: */
 }
 
-.books-container book-cmp {
+.books-container v-book {
   margin-bottom: 25rpx;
 }
 
 .cancel-img {
   width: 14px;
-  height: 14px;
+  height: 14px ;
   margin-right: 10px;
+  z-index: 99999;
 }
 
 .books-container {
