@@ -13,12 +13,16 @@ Page({
     authorized: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: null,
+    classics: [],
+    myBooksCount: 0
 
 
   },
   onLoad: function() {
     // 查看是否授权
-    this.userAuthorized()
+    this.userAuthorized();
+    this.getMyFavor();
+    this.getMyBookCount()
 
   },
 
@@ -59,7 +63,25 @@ Page({
   },
   bindGetUserInfo(e) {
     console.log(e.detail.userInfo)
-  }
+  },
+
+  getMyFavor() {
+    classicModel.getMyFavor(res=> {
+      console.log(res)
+      this.setData({
+        classics: res
+      })
+
+    })
+  },
+  getMyBookCount() {
+    bookModel.getMyBookCount().then(res=> {
+      console.log(res)
+      this.setData({
+        myBooksCount: res.count
+      })
+    })
+  },
 
 
 

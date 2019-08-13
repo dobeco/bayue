@@ -11,12 +11,12 @@ class ClassicModel extends HTTP {
       success: res => {
         callback(res);
         this._setlatestIndex(res.index);
-        let key =  this._getKey(res.index);
+        let key = this._getKey(res.index);
         wx.setStorageSync(key, res)
 
       }
     })
-  }
+  };
   // 获取期刊
   getClassic(index, nextOrPrevious, cab) {
     // 缓存处理
@@ -50,28 +50,38 @@ class ClassicModel extends HTTP {
       }
     })
 
-  }
+  };
 
 
   // 是否第一期
   isFirst(index) {
     return index === 1 ? true : false;
-  }
+  };
   // 是否最新一期
   islatest(index) {
     let latestIndex = this._getlatestIndex();
     return latestIndex === index ? true : false;
 
 
-  }
+  };
+
+  getMyFavor(success) {
+    let params = {
+      url: 'classic/favor',
+      success: success
+    }
+    this.request(params)
+  };
+
+
   _setlatestIndex(index) {
     wx.setStorageSync('latest', index)
-  }
+  };
 
   _getlatestIndex() {
     let index = wx.getStorageSync('latest');
     return index;
-  }
+  };
   _getKey(index) {
     let key = 'classic-' + index;
     return key;
