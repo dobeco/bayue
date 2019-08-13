@@ -90,12 +90,18 @@ Component({
       if(!this.data.q) {
         return false
       }
+      // 同时发送两个请求 一次只能发送一次请求，必须等待第一次请求完成之后再发送第二个请求
+      if(this.data.loading) {
+        return false
+      }
       const length = this.data.dataArray.length;
+      this.data.loading = true;
       bookModel.search(length,this.data.q)
         .then( res=> {
           const temArray = this.data.dataArray.concat(res.books);
           this.setData({
-            dataArray: temArray
+            dataArray: temArray,
+            loading: false
           })
         })
     }
