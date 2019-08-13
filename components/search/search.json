@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "v-tag": "/components/tag/tag",
-    "v-book": "/components/book/book"
+    "v-book": "/components/book/book",
+    "v-loading": "/components/loading/loading"
   }
 }

@@ -65,6 +65,7 @@ Component({
     // 搜索
     onConfirm(e) {
       this._showResult();
+      this._showLoadingCenter();
       this.initpagination();
       const q = e.detail.value || e.detail.text;
       // 图书搜索
@@ -78,6 +79,19 @@ Component({
         });
         // 添加历史记录
         keyWordModel.addToHistory(q);
+        this._hideLoadingCenter();
+      })
+    },
+
+    // 加载中
+    _showLoadingCenter() {
+      this.setData({
+        loadingCenter: true
+      })
+    },
+    _hideLoadingCenter() {
+      this.setData({
+        loadingCenter: false
       })
     },
 
@@ -110,7 +124,7 @@ Component({
           this.setMoreData(res.books);
           this._unLocked(); // 请求成功后解锁
 
-        }, () => { 
+        }, () => {
           /* 在断网情况下加载更多发送一次请求，在恢复网络后，一般情况下是能再发送请求的， 
           但是在断网后发送请求产生错误后，恢复网络后也不会发送请求了， 所以在请求失败的时候也要解锁
           */
@@ -127,12 +141,17 @@ Component({
     },
     // 加锁
     _locked() {
-      return this.data.loading = true;
+      this.setData({
+        loading: true
+      })
     },
 
     // 解锁 
     _unLocked() {
-      return this.data.loading = false;
+      this.setData({
+        loading: false
+      })
+
     }
 
 

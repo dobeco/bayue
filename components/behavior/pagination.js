@@ -34,8 +34,20 @@ const paginationBev = Behavior({
     },
     // 初始化页码
     initpagination() {
-      this.data.dataArray = [];
-      this.data.total = null
+      this.setData({
+        dataArray: [],
+        total: null
+      })
+      this.data.total = null;
+
+      /**
+       * 什么时候使用setData?
+       * 在代码中 total没必要使用setData，但是也可以用setData改变total的值
+       * 什么时候使用：只有data里的数据有在wxml中有应用，即绑定了data里面的值的时候。如果没有使用setData,小程序是不会通知wxml去重新计算绑定的data里面的值
+       * 如果data里的数据不在wxml里面使用，用不用setData都无所谓
+       * 
+       */
+
 
     }
   }

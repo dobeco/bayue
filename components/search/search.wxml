@@ -5,16 +5,14 @@
     <!-- 搜索框 -->
     <view class="search-container">
       <image class="icon" src="images/search.png" />
-      <input placeholder-class='in-bar' placeholder='书籍名' class='bar' bind:confirm="onConfirm"  value="{{q}}" />
-      <image bindtap="onDelete"  class="cancel-img" src="images/cancel.png" />
+      <input placeholder-class='in-bar' placeholder='书籍名' class='bar' bind:confirm="onConfirm" value="{{q}}" />
+      <image bindtap="onDelete" class="cancel-img" src="images/cancel.png" />
     </view>
-    
-
     <view class='cancel' bind:tap="onCancel">取消</view>
   </view>
 
 
-
+  <!-- 搜索词汇 -->
   <view wx:if="{{!searching}}">
     <view class="history">
       <view class="title">
@@ -42,5 +40,10 @@
       <v-book show-like="{{false}}" book="{{item}}" class="book" />
     </block>
   </view>
+
+  <!-- 加载中 -->
+  <v-loading class="loading-center" wx:if="{{loadingCenter}}"/>
+  <!-- 加载更多 -->
+  <v-loading class="loading" wx:if="{{loading}}"/>
 
 </view>
