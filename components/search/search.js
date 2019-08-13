@@ -15,7 +15,7 @@ Component({
   properties: {
     more: {
       type: String,
-      observer: '_load_more'
+      observer: 'loadMore'
     }
 
   },
@@ -58,17 +58,13 @@ Component({
     },
 
     onDelete(event) {
-      this.setData({
-        searching: false
-      })
+      this._cloaseResult()
 
     },
 
     // 搜索
     onConfirm(e) {
-      this.setData({
-        searching: true
-      })
+      this._showResult();
       this.initpagination();
       const q = e.detail.value || e.detail.text;
       // 图书搜索
@@ -83,34 +79,55 @@ Component({
         // 添加历史记录
         keyWordModel.addToHistory(q);
       })
+    },
 
+    _showResult() {
+      this.setData({
+        searching: true
+      })
+    },
 
+    _cloaseResult() {
+      this.setData({
+        searching: false
+      })
 
     },
 
     // 加载更多
-    _load_more() {
-      console.log('加载更多');
-
+    loadMore() {
       if (!this.data.q) {
         return false
       }
       // 同时发送两个请求 一次只能发送一次请求，必须等待第一次请求完成之后再发送第二个请求
-      if (this.data.loading) {
+      if (this._isLocked()) {
         return false
       }
       const length = this.getCurrentStart();
       if (this.hasMore()) {
-        this.data.loading = true;
+        this._locked();
         bookModel.search(length, this.data.q).then(res => {
-          this.setMoreData(res.books)
-          this.setData({
+          this.setMoreData(res.books);
+          this._unLocked();
 
-            loading: false
-          })
         })
       }
 
+    },
+
+    // 锁 避免重复请求
+    _isLocked() {
+      return this.data.loading ? true : false;
+
+    },
+    // 加锁
+    _locked() {
+      return this.data.loading = true;
+    },
+
+    // 解锁 
+    _unLocked() {
+      return this.data.loading = false;
     }
 
 
