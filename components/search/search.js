@@ -117,45 +117,27 @@ Component({
         return false
       }
       // 同时发送两个请求 一次只能发送一次请求，必须等待第一次请求完成之后再发送第二个请求
-      if (this._isLocked()) {
+      if (this.isLocked()) {
         return false
       }
       const length = this.getCurrentStart();
       if (this.hasMore()) {
-        this._locked();
+        this.locked();
         bookModel.search(length, this.data.q).then(res => {
           this.setMoreData(res.books);
-          this._unLocked(); // 请求成功后解锁
+          this.unLocked(); // 请求成功后解锁
 
         }, () => {
           /* 在断网情况下加载更多发送一次请求，在恢复网络后，一般情况下是能再发送请求的， 
           但是在断网后发送请求产生错误后，恢复网络后也不会发送请求了， 所以在请求失败的时候也要解锁
           */
-          this._unLocked()
+          this.unLocked()
         })
       }
 
     },
 
-    // 锁 避免重复请求
-    _isLocked() {
-      return this.data.loading ? true : false;
 
-    },
-    // 加锁
-    _locked() {
-      this.setData({
-        loading: true
-      })
-    },
-
-    // 解锁 
-    _unLocked() {
-      this.setData({
-        loading: false
-      })
-
-    }
 
 
 

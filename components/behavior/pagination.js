@@ -4,6 +4,7 @@ const paginationBev = Behavior({
     dataArray: [],
     total: null,
     noneResult: false,
+    loading: false
   },
 
   methods: {
@@ -16,7 +17,7 @@ const paginationBev = Behavior({
       })
 
     },
-    
+
     // 是否加载更多数据
     hasMore() {
       if (this.data.dataArray.length >= this.data.total) {
@@ -28,22 +29,44 @@ const paginationBev = Behavior({
 
     setTotal(total) {
       // 设置total值
-       this.data.total = total;
-      if(total === 0) {
+      this.data.total = total;
+      if (total === 0) {
         this.setData({
           noneResult: true
         })
       }
-    
+
     },
     getCurrentStart() {
       return this.data.dataArray.length;
     },
+
+    // 锁 避免重复请求
+    isLocked() {
+      return this.data.loading ? true : false;
+
+    },
+    // 加锁
+    locked() {
+      this.setData({
+        loading: true
+      })
+    },
+
+    // 解锁 
+    unLocked() {
+      this.setData({
+        loading: false
+      })
+
+    },
+
     // 初始化页码
     initpagination() {
       this.setData({
         dataArray: [],
-        noneResult: false
+        noneResult: false,
+        loading: false
       })
       this.data.total = null;
 
@@ -54,9 +77,9 @@ const paginationBev = Behavior({
        * 如果data里的数据不在wxml里面使用，用不用setData都无所谓
        * 
        */
+    },
 
 
-    }
   }
 })
 
