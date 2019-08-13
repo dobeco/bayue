@@ -108,8 +108,13 @@ Component({
         this._locked();
         bookModel.search(length, this.data.q).then(res => {
           this.setMoreData(res.books);
-          this._unLocked();
+          this._unLocked(); // 请求成功后解锁
 
+        }, () => { 
+          /* 在断网情况下加载更多发送一次请求，在恢复网络后，一般情况下是能再发送请求的， 
+          但是在断网后发送请求产生错误后，恢复网络后也不会发送请求了， 所以在请求失败的时候也要解锁
+          */
+          this._unLocked()
         })
       }
 
