@@ -9,6 +9,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    more: {
+      type: String,
+      observer:'_load_more'
+    }
 
   },
 
@@ -19,11 +23,11 @@ Component({
     historyWords: [],
     hotWords: [],
     dataArray: [],
-    finished: false,
     q: '',
     loading: false,
     loadingCenter: false,
-    searching: false
+    searching: false,
+  
 
 
   },
@@ -78,6 +82,25 @@ Component({
 
 
     },
+
+    // 加载更多
+    _load_more() {
+      console.log('加载更多');
+
+      if(!this.data.q) {
+        return false
+      }
+      const length = this.data.dataArray.length;
+      bookModel.search(length,this.data.q)
+        .then( res=> {
+          const temArray = this.data.dataArray.concat(res.books);
+          this.setData({
+            dataArray: temArray
+          })
+        })
+    }
+
+
 
  
 

@@ -1,5 +1,6 @@
 // pages/book/book.js
 import BookModel from '../../models/book.js'
+import {random} from '../../utils/util.js'
 let bookModel = new BookModel();
 Page({
 
@@ -9,7 +10,7 @@ Page({
   data: {
     books: [],
     searchPanel: false,
-    more: false
+    more: ''
 
   },
 
@@ -37,10 +38,10 @@ Page({
         res => {
           console.log(res)
           this.setData({
-            books:res
+            books: res
           })
         }
-        
+
       )
 
   },
@@ -50,13 +51,13 @@ Page({
 
   },
 
-  onActivateSearch: function (event) {
+  onActivateSearch: function(event) {
     this.setData({
       searchPanel: true
     })
   },
 
-  onCancel: function (event) {
+  onCancel: function(event) {
     this.setData({
       searchPanel: false
     })
@@ -64,11 +65,17 @@ Page({
 
   onShareAppMessage() {
 
+  },
+
+  onReachBottom() {
+    this.setData({
+      more:random(16)
+    })
   }
 
-  
 
- 
+
+
 
 
 })
