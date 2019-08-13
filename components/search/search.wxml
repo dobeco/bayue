@@ -46,4 +46,6 @@
   <!-- 加载更多 -->
   <v-loading class="loading" wx:if="{{loading}}"/>
 
+  <text wx:if="{{noneResult}}" class="empty-tip">没有搜索到书籍</text>
+
 </view>

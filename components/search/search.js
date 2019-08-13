@@ -30,9 +30,6 @@ Component({
     loading: false,
     loadingCenter: false,
     searching: false,
-
-
-
   },
 
   attached() {
@@ -54,11 +51,15 @@ Component({
    */
   methods: {
     onCancel(event) {
+      this.initpagination();
       this.triggerEvent('cancel', {}, {})
+
     },
 
     onDelete(event) {
-      this._cloaseResult()
+      this.initpagination();
+      this._cloaseResult();
+
 
     },
 
@@ -68,15 +69,16 @@ Component({
       this._showLoadingCenter();
       this.initpagination();
       const q = e.detail.value || e.detail.text;
+      this.setData({
+        q
+      });
       // 图书搜索
       bookModel.search(0, q).then(res => {
         console.log(res);
         this.setMoreData(res.books);
         this.setTotal(res.total);
         this.setTotal(res.total);
-        this.setData({
-          q
-        });
+      
         // 添加历史记录
         keyWordModel.addToHistory(q);
         this._hideLoadingCenter();
@@ -103,7 +105,8 @@ Component({
 
     _cloaseResult() {
       this.setData({
-        searching: false
+        searching: false,
+        q: ''
       })
 
     },
